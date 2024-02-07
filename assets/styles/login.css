@@ -1,3 +1,49 @@
-.main-login-cont{
-    /* background-color: black; */
+.main-login-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    margin-top: 10rem;
+    height: 100%;
+}
+
+.form-signin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.signin-logo {
+    width: 300px;
+}
+.signin-title{
+    color: white;
+    font-size: 3rem;
+}
+
+.form-signin input{
+    width: 400px;
+    height: 40px;
+    padding: 5px;
+    color: var(--background-color);
+    font-size: 1.2rem;
+
+}
+.btn{
+    width: 200px;
+    height: 40px;
+    font-size: 1.2rem;
+    border: none;
+    margin-bottom: 10px;
+}
+.login-btn{
+    color: var(--background-color);
+    background-color: white;
+}
+.signup-btn{
+    
+    color: white;
+    background-color:var(--bright-background-color);
+
 }
