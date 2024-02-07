@@ -1,7 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
-
+{% block title %}Creer un compte
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('styles/signup.css') }}" type="text/css">
+{% endblock %}
 {% block body %}
-{{ form(form) }}
+	<div class="main-center-cont signup-cont">
+		<img class="signin-logo" src="{{ asset('images/logo1.png') }}" alt="logo">
+		{# <form action="{{ path('app_signup') }}" method="post"> #}
+            {{ form_start(form) }}
+			{{ form_widget(form.nom) }}
+			{{ form_widget(form.prenom) }}
+			{{ form_widget(form.email) }}
+			{{ form_widget(form.password) }}
+            {{ form_widget(form.Enregistrer) }}
+            {{ form_end(form) }}
+			{# <button type="submit" class="btn bright-btn" >Creer un compte</button> #}
+		{# </form> #}
+		<button class="btn dark-btn" onclick="window.location.href='{{ path('app_login') }}'">Abandonner</button>
+	</div>
 {% endblock %}

@@ -6,8 +6,8 @@
 	<link rel="stylesheet" href="{{ asset('styles/login.css') }}" type="text/css">
 {% endblock %}
 {% block body %}
-	<div class="main-login-cont">
-		<form method="post">
+	<div class="main-center-cont">
+		<form method="post" class="form-signin">
 			{% if error %}
 				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 			{% endif %}
@@ -19,21 +19,19 @@
 					<a href="{{ path('app_logout') }}">Logout</a>
 				</div>
 			{% endif %}
-
-			<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-			<label for="inputEmail">Email</label>
-			<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-			<label for="inputPassword">Password</label>
-			<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+			<img class="signin-logo" src="{{ asset('images/logo1.png') }}" alt="logo">
+			<h1 class="signin-title">Se connecter</h1>
+			<input type="email" value="{{ last_username }}" placeholder="Email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+			<input type="password" placeholder="Mot de passe" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
 			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-			<button class="btn btn-lg btn-primary" type="submit">
+			<button class="btn bright-btn" type="submit">
 				Se connecter
 			</button>
 
 		</form>
-		<button class="btn btn-lg btn-primary" onclick="window.location.href='{{ path('app_signup') }}'">
+		<button class="btn dark-btn" onclick="window.location.href='{{ path('app_signup') }}'">
 			S'inscrire
 		</button>
 	</div>
