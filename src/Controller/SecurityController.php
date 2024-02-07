@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controller;
+require_once __DIR__ . '/../constants/constants.php';
+
 
 use App\Entity\User;
 use App\Form\UserType;
@@ -43,6 +45,7 @@ class SecurityController extends AbstractController
             );
 
             $user->setPassword($hashedPassword);
+            $user->setRoles([APPRENANT]);
             $entityManager->persist($user);
             $entityManager->flush();
             return $this->redirectToRoute('app_login');
