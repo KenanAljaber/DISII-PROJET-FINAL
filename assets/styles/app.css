@@ -5,7 +5,7 @@
     box-sizing: border-box;
     /* border: 1px solid red; */
     --background-color: #111C2A;
-    --bright-background-color:#6D90A6;
+    --bright-background-color:#D0E5F4;
 }
 
 body {
@@ -34,9 +34,10 @@ input{
     background-color: white;
 }
 .dark-btn{
-    
-    color: white;
+
+    color: var(--background-color);
     background-color:var(--bright-background-color);
+    
 
 }
 .btn:hover{
@@ -60,6 +61,7 @@ input{
 }
 
 .main-center-cont {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;

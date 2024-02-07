@@ -19,6 +19,7 @@
 					<a href="{{ path('app_logout') }}">Logout</a>
 				</div>
 			{% endif %}
+			<img class="back-arrow" src="{{ asset('images/left-arrow.png') }}" onclick="window.location.href='{{ path('app_home') }}'" alt="back">
 			<img class="signin-logo" src="{{ asset('images/logo1.png') }}" alt="logo">
 			<h1 class="signin-title">Se connecter</h1>
 			<input type="email" value="{{ last_username }}" placeholder="Email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>

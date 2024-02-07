@@ -18,6 +18,6 @@
             {{ form_end(form) }}
 			{# <button type="submit" class="btn bright-btn" >Creer un compte</button> #}
 		{# </form> #}
-		<button class="btn dark-btn" onclick="window.location.href='{{ path('app_login') }}'">Abandonner</button>
+		<button class="btn dark-btn" onclick="history.back()">Abandonner</button>
 	</div>
 {% endblock %}
