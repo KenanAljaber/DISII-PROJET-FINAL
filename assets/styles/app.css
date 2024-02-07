@@ -1,3 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Poppins;
+    box-sizing: border-box;
+    /* border: 1px solid red; */
+}
 body {
-    background-color: skyblue;
+    width: 100vw;
+    height: 100vh;
+    background-color: #111C2A;
+}
+
+.shape {
+    width: 242px;
+    height: 446px;
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+    right: 0;
+    background: url(../images/shape.png);
+    background-size: cover;
+}
+.shape-top{
+    top: 0;
+    left: 0;
+    transform: rotate(180deg);
 }
