@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="{{ asset('styles/login.css') }}" type="text/css">
 {% endblock %}
 {% block body %}
-	<div class="main-login-cont">
+	<div class="main-center-cont">
 		<form method="post" class="form-signin">
 			{% if error %}
 				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -26,12 +26,12 @@
 
 			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-			<button class="btn login-btn" type="submit">
+			<button class="btn bright-btn" type="submit">
 				Se connecter
 			</button>
 
 		</form>
-		<button class="btn signup-btn" onclick="window.location.href='{{ path('app_signup') }}'">
+		<button class="btn dark-btn" onclick="window.location.href='{{ path('app_signup') }}'">
 			S'inscrire
 		</button>
 	</div>

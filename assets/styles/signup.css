@@ -1,19 +1,17 @@
-
-
-.form-signin {
+.signup-cont form{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 30px;
 }
-
-.signin-logo {
+.signin-logo{
     width: 300px;
 }
-.signin-title{
-    color: white;
-    font-size: 3rem;
+
+.create-account-btn{
+
 }
 
-
-
+.cancel-btn{
+    
+}
