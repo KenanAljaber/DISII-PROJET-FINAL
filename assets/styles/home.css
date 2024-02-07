@@ -1,0 +1,196 @@
+* {
+    margin : 0;
+    padding : 0;
+}
+
+.main   {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+.main .logo img {
+    height: 100px;
+    position: absolute;
+    top: 20px;
+    right: 50px;
+}
+
+.main .upper {
+    height: 60%;
+    width: 100%;
+    display: flex;
+}
+
+.main .upper .left {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 100px;
+}
+
+.main .upper .left h1 {
+    font-size: 2.5em;
+    text-align: center;
+    margin: 50px 25px 0 25px;
+    color: white;
+}
+.main .upper .left p {
+    text-align: center;
+    font-size: 1.2em;
+    color: white;
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+.main .upper .left .buttons button {
+    margin-right:50px;
+    padding: 8px;
+    width: 120px;
+    border-radius: 15px;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.main .upper .right {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 100px;
+}
+
+.main .upper .right svg {
+    width: 60%;
+    margin-top: 50px;
+}
+
+
+.main .lower {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.main .lower h2 {
+    margin: 50px;
+    color: white;
+}
+
+.main .lower .images {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.main .lower .images img {
+    height: 100px;
+    margin-bottom: 40px;
+}
+
+.main .lower .images .img1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    color: white;
+    text-align: center;
+}
+
+.main .backimage { 
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+.main .backimage img { 
+    width: 100%;
+    opacity: 0.5;
+}
+
+.main .social svg{
+    margin: 10px;
+    fill: white;
+    height: 40px;
+    width: 40px;
+}
+
+/* 
+@media screen and (max-width: 768px) {
+    .main .upper {
+        flex-direction: column;
+        height: 100%;
+        padding: 0;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .main .upper .left {
+        width: 100%;
+        margin-top: 120px;
+        padding: 20px;
+        box-sizing: border-box; 
+    }
+    .main .upper .right {
+        width: 100%;
+        margin-top: -1000px;
+        padding: 20px;
+        box-sizing: border-box; 
+    }
+    
+    .main .upper .left h1 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+
+    .main .upper .left p {
+        width: 100%;
+        margin-bottom:20px;
+    }
+    .main .upper .left .buttons button {
+        margin: 0 10px 10px;
+    }
+    .main .upper .right {
+        margin-top: 50px;
+    }
+    .main h2 {
+        margin: 20px;
+    }
+    .main .lower {
+        flex-direction: column;
+    }
+}
+
+.main {
+    background-size: cover;
+    background-position: center;
+}
+
+@media screen and (max-width: 768px) {
+    .main .logo img {
+        position: static;
+        margin: 20px;
+    }
+    .main .backimage {
+        position: static;
+        margin: 20px;
+    }
+}
+
+.svg-container {
+    width: 100%;
+    max-width: 500px;
+} */
