@@ -1,0 +1,41 @@
+.pending-cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    height: 100%;
+    width: 100%;
+    gap: 30px;
+    color: var(--bright-background-color);
+}
+
+.welcome-text{
+    font-size: 1.5rem;
+    width: 100%;
+}
+.welcome-text h1{
+    margin-left: 5rem;
+    margin-top: 3rem;
+}
+
+.pending-cont .pending-img{
+    width: 300px;
+    position: absolute;
+    bottom: 3rem;
+    left: 2rem;
+}
+.margin-text{
+    margin: 2rem;
+}
+.pending-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.pending-body h2{
+    font-size: 3rem;
+}
+.pending-body h3{
+    font-size: 2rem;
+}
