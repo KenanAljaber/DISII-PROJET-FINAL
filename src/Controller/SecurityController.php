@@ -29,7 +29,7 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('app_apprenant_dashboard');
             }
             if($role==ADMIN){
-                return $this->redirectToRoute('app_signup');
+                return $this->render('admin/index.html.twig', ['user' => $this->getUser()]);
             }
             return $this->redirectToRoute('app_home');
         }

@@ -12,7 +12,9 @@
         {% endblock %}
     </head>
     <body>
- 
+        {% if app.user %}
+            {% include 'navbar.html.twig' %}
+        {% endif %}
         <div class="shape"></div>
         <div class="shape shape-top"></div>
         {% block body %}
