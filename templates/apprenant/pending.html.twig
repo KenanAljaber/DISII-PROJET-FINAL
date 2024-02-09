@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue {{ user.prenom }}{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('styles/pending.css') }}" type="text/css">
+{% endblock %}
+{% block body %}
+
+<div class="pending-cont">
+    <div class="welcome-text">
+        <h1>Bienvenue {{ user.prenom }}</h1>
+    </div>
+    <div class="pending-body">
+        <h2 class="margin-text">Merci pour votre inscription</h2>
+        <h3>Votre demande est en cours de traitement.</h3>
+        <h3>Voulez-vous attendre l'acceptation de l'admin</h3>
+        <h3 class="margin-text">Restez a l'ecoute!</h3>
+        <button class="btn dark-btn" onclick="window.location.href='{{ path('app_logout') }}'">Se deconnecter</button>
+        <img class="pending-img" src="{{ asset('images/pending.svg') }}" alt="">
+    </div>
+</div>
+
+{% endblock %}
