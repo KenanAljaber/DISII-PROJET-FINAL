@@ -43,6 +43,17 @@ input{
 .btn:hover{
     cursor: pointer;
 }
+.btn-table{
+    width: 100px;
+    transition: 0.5s;
+}
+.btn-table:hover{
+    transform: scale(1.1);
+    transition: 0.5s;
+    background-color: var(--background-color);
+    color: white;
+    
+}
 .shape {
     width: 242px;
     height: 446px;
@@ -73,15 +84,23 @@ input{
 td, th {
     padding: 10px;
     color: rgb(51, 51, 51);
-    font-size: 0.8rem;
+    font-size: 1rem;
     min-width: 180px;
     background-color: rgba(255, 255, 255, 0.7);
-    height: 30px;
-    padding: 0 10px 0 10px;
+    /* height: 40px; */
+    /* padding: 0 10px 0 10px; */
 }
 th {
     background-color: #D0E5F2;
+    font-size: 1.2rem;
 }
 .column1{
     background-color: #5C798D;
+}
+.back-arrow{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 250px;
+    left: 10%;
 }

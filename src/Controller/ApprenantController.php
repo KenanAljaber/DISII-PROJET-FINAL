@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Matiere;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,9 +24,11 @@ class ApprenantController extends AbstractController
         $matieres = [];
         foreach ($results as $result) {
             $matieres[] = [
+                'apprenant_id' => $result['apprenant_id'],
                 'formation' => $result['formation'],
                 'formateur' => $result['formateur'],
                 'nom' => $result['matiere'],
+                'id' => $result['matiere_id'],
             ];
         }
 
@@ -33,6 +36,20 @@ class ApprenantController extends AbstractController
             'user' => $user,
             'matieres' => $matieres,
         ]);
+    }
+    #[Route('/apprenant/{id}/{matiere}', name: 'apprenant_show_matiere')]
+    public function showMatiereDetails(EntityManagerInterface $entityManager, int $id, int $matiere): Response
+    {
+        $userRepo= $entityManager->getRepository(User::class);
+        $matiereRepo= $entityManager->getRepository(Matiere::class);
+
+        $user = $userRepo->find($id);
+        $matiere = $matiereRepo->find($matiere);
+        return $this->render('apprenant/show_matiere.html.twig', [
+            'user' => $user,
+            'matiere' => $matiere
+        ]);
+
     }
 
 }

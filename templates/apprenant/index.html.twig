@@ -11,46 +11,27 @@
 {% endblock %}
 {% block body %}
 
-	<h1>Bienvenue
-		{{ user.prenom }}</h1>
-
-	<h1>{{user.formation.titre}}</h1>
-	{# <h1>{{foundUser.nom}}</h1> #}
 	{% if matieres %}
-		{# <h2>Matières</h2>
-		        <table border="1" class="table">
-		            <tr>
-		                <th>Nom</th>
-		                <th>Formateur</th>
-		            </tr>
-		            {% for matiere in matieres %}
-		                <tr>
-		                    <td>{{matiere.nom}}</td>
-		                     <td>{{ matiere.formateur is null ? 'No formateur assigned' : matiere.formateur }}</td>
-		                </tr>
-		            {% endfor %}
-		        </table> #}
 		<section class="main">
 			<div class="title">
-				<h1>Bienvenue apprenant</h1>
-				<p>Nom de la formation</p>
+				<h1>Bienvenue {{ user.prenom }}</h1>
+                <h2 class="subtitle">Ton formation: <span class="formation">{{ matieres[0].formation }}</span></h2>
 			</div>
 			<div class="content">
-				<svg width="350" height="350">
-					<image xlink:href="./images/apprenant.svg" width="350" height="350"/>
-				</svg>
+
+                <h2>Liste des matieres</h2>
 				<div class="board">
 					<table class="table">
 						<tr>
 							<th>Matiere</th>
-							<th>Formation</th>
 							<th>Formateur</th>
+							<th>Detalle</th>
 						</tr>
 						{% for matiere in matieres %}
 							<tr>
 								<td td class="column1">{{matiere.nom}}</td>
-								<td td>{{matiere.formation}}</td>
 								<td>{{ matiere.formateur is null ? 'No formateur assigned' : matiere.formateur }}</td>
+								<td td class="column-action"><button class="btn btn-table" onclick="location.href='{{ path('apprenant_show_matiere', {'id': matiere.apprenant_id ,'matiere': matiere.id,}) }}'">Voir</button></td>
 							</tr>
 						{% endfor %}
 

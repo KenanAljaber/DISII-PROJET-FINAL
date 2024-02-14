@@ -68,7 +68,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT f.titre AS formation, u_formateur.nom AS formateur, m.nom AS matiere
+            'SELECT u_apprenant.id AS apprenant_id, f.titre AS formation, u_formateur.nom AS formateur, m.nom AS matiere, m.id AS matiere_id
         FROM App\Entity\User u_apprenant
         JOIN u_apprenant.formation f
         JOIN f.matieres m

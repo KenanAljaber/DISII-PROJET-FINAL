@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ user.prenom }}
+	dashboard
+{% endblock %}
+
+{% block stylesheets %}
+
+	<link rel="stylesheet" href="{{ asset('styles/apprenant_detail.css') }}" type="text/css">
+{% endblock %}
+{% block body %}
+	<img class="back-arrow" src="{{ asset('images/left-arrow.png') }}" onclick="history.back()" alt="back">
+	{% if matiere %}
+		<section class="main">
+			<div class="title">
+				<h1>Bienvenue
+					{{ user.prenom }}</h1>
+				{# <h2 class="subtitle">Ton formation: <span class="formation">{{ matieres[0].formation }}</span></h2> #}
+			</div>
+
+			<div class="content">
+				<div class="board">
+							{# if lenght is > 0 #}
+				{% if matiere.notes|length %}
+					<div class="notes-table">
+						<h1>Notes</h1>
+						<table class="table">
+							<tr>
+								<th>Score</th>
+								<th>Date</th>
+							</tr>
+							{% for note in matiere.notes %}
+								<tr>
+									<td td class="column1">{{note.score}}</td>
+									<td td>{{note.date.format('d/m/Y')}}</td>
+								</tr>
+							{% endfor %}
+
+						</table>
+					</div>
+					{% else %}
+						<p class="no-note">Aucune note pour le moment</p>
+				{% endif %}
+					<div class="program-table">
+						<h1>Les programmes</h1>
+						<table class="table">
+							<tr>
+								<th>Nom</th>
+								<th>Date</th>
+							</tr>
+							{% for program in matiere.programs %}
+								<tr>
+									<td td class="column1">{{program.titre}}</td>
+									<td td>{{program.date}}</td>
+								</tr>
+							{% endfor %}
+
+						</table>
+					</div>
+
+				</div>
+			</div>
+		</section>
+	{% endif %}
+
+{% endblock %}

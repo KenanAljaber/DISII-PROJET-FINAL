@@ -6,6 +6,7 @@ require_once __DIR__ . '/../constants/constants.php';
 
 use App\Entity\Formation;
 use App\Entity\Matiere;
+use App\Entity\Program;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -16,6 +17,7 @@ class AppFixtures extends Fixture
 {
     private $fake_matiere = ["Anglais", "Francais", "Maths", "Physique", "Chimie", "Biologie", "SVT", "Histoire", "Geographie", "Geologie", "Sociologie", "Economie", "Psychologie", "Programmation", "Algorithm"];
     private $fake_formation = ["Developpeur Web", "Developpeur Mobile", "Ingénieur Logiciels", "Ingénieur Réseaux", "Ingénieur Multimédia", "Ingénieur Cybersecurite", " Ingénieur Génie Logiciel"];
+    private $fake_program = ["chapter 1", "chapter 2", "chapter 3", "chapter 4", "chapter 5", "chapter 6", "chapter 7", "chapter 8", "chapter 9", "chapter 10"];
     private $passwordHasher;
     private $faker;
 
@@ -86,6 +88,18 @@ class AppFixtures extends Fixture
     }
     public function loadFormations(ObjectManager $manager): array
     {
+       $formateur= new User();
+       $formateur->setEmail('formateur@formateur.com');
+       $formateur->setNom('Formateur');
+       $formateur->setPrenom('Formateur');
+       $formateur->setRoles([FORMATEUR]);
+       $formateur->setPassword('Admin0009');
+       $hashedPassword = $this->passwordHasher->hashPassword(
+           $formateur,
+           $formateur->getPassword()
+       );
+       $formateur->setPassword($hashedPassword);
+       $manager->persist($formateur);
         $formation_objects = [];
         for ($i = 0; $i < 5; $i++) {
             $formation = new Formation();
@@ -101,8 +115,18 @@ class AppFixtures extends Fixture
                 $matiere = new Matiere();
                 $matiere->setNom($this->faker->randomElement($this->fake_matiere));
                 $matiere->setFormation($formation);
+                $matiere->setFormateur($formateur);
+                for($k = 0; $k < 5; $k++){
+                    $progrm = new Program();
+                    $progrm->setTitre($this->faker->randomElement($this->fake_program));
+                    $progrm->setDate($this->faker->date('Y-m-d'));
+                    $progrm->setMatiere($matiere);
+                    $matiere->addProgram($progrm);
+                    $manager->persist($progrm);
+                }
                 $manager->persist($matiere);
             }
+
             $manager->persist($formation);
 
             $formation_objects[] = $formation;
