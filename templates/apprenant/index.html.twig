@@ -1,7 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bienvenue {{ user.prenom }}{% endblock %}
+{% block title %}{{ user.prenom }} dashboard{% endblock %}
 
+{% block stylesheets %}
+    
+<link rel="stylesheet" href="{{ asset('styles/apprenant.css') }}" type="text/css">
+{% endblock %}
 {% block body %}
+
+    <h1>Bienvenue {{ user.prenom }}</h1>
+
+    <h1>{{user.formation.titre}}</h1>
+    {# <h1>{{foundUser.nom}}</h1> #}
+    {% if matieres %}
+        <h2>Matières</h2>
+        <table border="1" class="table">
+            <tr>
+                <th>Nom</th>
+                <th>Formateur</th>
+            </tr>
+            {% for matiere in matieres %}
+                <tr>
+                    <td>{{matiere.nom}}</td>
+                     <td>{{ matiere.formateur is null ? 'No formateur assigned' : matiere.formateur }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
 
 {% endblock %}
