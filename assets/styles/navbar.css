@@ -1,0 +1,36 @@
+
+.header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.header .logo img {
+    height: 100px;
+    margin-left: 50px;
+}
+
+.header .navbar ul {
+    display: flex;
+    margin-right: 10px;
+}
+
+.header .navbar li{
+    margin: 0 30px;
+    list-style: none;
+    color: white;
+}
+
+.header .navbar li a {
+    text-decoration: none;
+    color: white; 
+    font-size: 1.5rem;
+}
+.header .navbar li a svg {
+    fill: white;
+    transform: scale(2);
+}
