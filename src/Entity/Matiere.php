@@ -21,6 +21,9 @@ class Matiere
     #[ORM\ManyToOne(inversedBy: 'matieres')]
     private ?User $formateur = null;
 
+    #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'matiere')]
+    private Collection $programs;
+
     #[ORM\OneToMany(targetEntity: Note::class, mappedBy: 'matiere')]
     private Collection $notes;
 
@@ -30,6 +33,7 @@ class Matiere
 
     public function __construct()
     {
+        $this->programs = new ArrayCollection();
         $this->notes = new ArrayCollection();
     }
 
@@ -58,6 +62,36 @@ class Matiere
     public function setFormateur(?User $formateur): static
     {
         $this->formateur = $formateur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Program>
+     */
+    public function getPrograms(): Collection
+    {
+        return $this->programs;
+    }
+
+    public function addProgram(Program $program): static
+    {
+        if (!$this->programs->contains($program)) {
+            $this->programs->add($program);
+            $program->setMatiere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgram(Program $program): static
+    {
+        if ($this->programs->removeElement($program)) {
+            // set the owning side to null (unless already changed)
+            if ($program->getMatiere() === $this) {
+                $program->setMatiere(null);
+            }
+        }
 
         return $this;
     }

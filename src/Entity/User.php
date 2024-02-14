@@ -10,7 +10,6 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -36,8 +35,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
-    #[ORM\ManyToMany(targetEntity: Formation::class, mappedBy: 'apprenants')]
-    private Collection $formations;
+    #[ORM\ManyToOne(inversedBy: 'apprenants')]
+    private ?Formation $formation = null;
 
     #[ORM\OneToMany(targetEntity: Matiere::class, mappedBy: 'formateur')]
     private Collection $matieres;
@@ -45,11 +44,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Note::class, mappedBy: 'apprenant')]
     private Collection $notes;
 
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'apprenants')]
+    private ?self $tuteur = null;
+
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'tuteur')]
+    private Collection $apprenants;
+
+
     public function __construct()
     {
-        $this->formations = new ArrayCollection();
         $this->matieres = new ArrayCollection();
         $this->notes = new ArrayCollection();
+        $this->apprenants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -86,7 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = VISTIANTE;
 
         return array_unique($roles);
     }
@@ -122,33 +128,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    /**
-     * @return Collection<int, Formation>
-     */
-    public function getFormations(): Collection
-    {
-        return $this->formations;
-    }
-
-    public function addFormation(Formation $formation): static
-    {
-        if (!$this->formations->contains($formation)) {
-            $this->formations->add($formation);
-            $formation->addApprenant($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFormation(Formation $formation): static
-    {
-        if ($this->formations->removeElement($formation)) {
-            $formation->removeApprenant($this);
-        }
-
-        return $this;
-    }
-
     public function getNom(): ?string
     {
         return $this->nom;
@@ -169,6 +148,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrenom(string $prenom): static
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): static
+    {
+        $this->formation = $formation;
 
         return $this;
     }
@@ -232,4 +223,52 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getTuteur(): ?self
+    {
+        return $this->tuteur;
+    }
+
+    public function setTuteur(?self $tuteur): static
+    {
+        $this->tuteur = $tuteur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getApprenants(): Collection
+    {
+        return $this->apprenants;
+    }
+
+    public function addApprenant(self $apprenant): static
+    {
+        if (!$this->apprenants->contains($apprenant)) {
+            $this->apprenants->add($apprenant);
+            $apprenant->setTuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApprenant(self $apprenant): static
+    {
+        if ($this->apprenants->removeElement($apprenant)) {
+            // set the owning side to null (unless already changed)
+            if ($apprenant->getTuteur() === $this) {
+                $apprenant->setTuteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+    
+
+ 
 }

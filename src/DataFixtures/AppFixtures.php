@@ -27,13 +27,14 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         // Create admin user
-        $formation_objects= $this->loadFormations($manager);
+        $formation_objects = $this->loadFormations($manager);
         $this->loadUsers($manager, $formation_objects);
 
         $manager->flush();
     }
 
-    public function loadUsers (ObjectManager $manager, $formations): void{
+    public function loadUsers(ObjectManager $manager, $formations): void
+    {
         $admin = new User();
         $admin->setEmail('admin@admin.com');
         $admin->setNom('Admin');
@@ -46,6 +47,19 @@ class AppFixtures extends Fixture
         );
         $admin->setPassword($hashedPassword);
         $manager->persist($admin);
+
+        $tuteur = new User();
+        $tuteur->setEmail('tuteur@tuteur.com');
+        $tuteur->setNom('Tuteur');
+        $tuteur->setPrenom('Tuteur');
+        $tuteur->setRoles([TUTEUR]);
+        $tuteur->setPassword('Tuteur0009');
+        $hashedPassword = $this->passwordHasher->hashPassword(
+            $tuteur,
+            $tuteur->getPassword()
+        );
+        $tuteur->setPassword($hashedPassword);
+
 
         // Create multiple fake users with apprenant role
         for ($i = 0; $i < 10; $i++) {
@@ -61,15 +75,18 @@ class AppFixtures extends Fixture
             );
             $user->setPassword($hashedPassword);
             $randomFormation = $this->faker->randomElement($formations);
-            $user->addFormation($randomFormation);
+            $user->setFormation($randomFormation);
             $manager->persist($user);
-            
-
+            if ($i % 2 == 0) {
+                $user->setTuteur($tuteur);
+                $tuteur->addApprenant($user);
+            }
         }
+        $manager->persist($tuteur);
     }
     public function loadFormations(ObjectManager $manager): array
     {
-        $formation_objects=[];
+        $formation_objects = [];
         for ($i = 0; $i < 5; $i++) {
             $formation = new Formation();
             $added_formation = [];
@@ -79,7 +96,7 @@ class AppFixtures extends Fixture
                 continue;
             }
             $added_formation[] = $formation_nom;
-            $formation->setNom($formation_nom);
+            $formation->setTitre($formation_nom);
             for ($j = 0; $j < 5; $j++) {
                 $matiere = new Matiere();
                 $matiere->setNom($this->faker->randomElement($this->fake_matiere));

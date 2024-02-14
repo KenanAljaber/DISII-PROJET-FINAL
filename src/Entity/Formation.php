@@ -16,9 +16,9 @@ class Formation
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nom = null;
+    private ?string $titre = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'formations')]
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'formation')]
     private Collection $apprenants;
 
     #[ORM\OneToMany(targetEntity: Matiere::class, mappedBy: 'formation')]
@@ -35,14 +35,14 @@ class Formation
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getTitre(): ?string
     {
-        return $this->nom;
+        return $this->titre;
     }
 
-    public function setNom(string $nom): static
+    public function setTitre(string $titre): static
     {
-        $this->nom = $nom;
+        $this->titre = $titre;
 
         return $this;
     }
@@ -59,6 +59,7 @@ class Formation
     {
         if (!$this->apprenants->contains($apprenant)) {
             $this->apprenants->add($apprenant);
+            $apprenant->setFormation($this);
         }
 
         return $this;
@@ -66,7 +67,12 @@ class Formation
 
     public function removeApprenant(User $apprenant): static
     {
-        $this->apprenants->removeElement($apprenant);
+        if ($this->apprenants->removeElement($apprenant)) {
+            // set the owning side to null (unless already changed)
+            if ($apprenant->getFormation() === $this) {
+                $apprenant->setFormation(null);
+            }
+        }
 
         return $this;
     }

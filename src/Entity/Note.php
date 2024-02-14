@@ -19,11 +19,11 @@ class Note
 
     #[ORM\ManyToOne(inversedBy: 'notes')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Matiere $matiere = null;
+    private ?User $apprenant = null;
 
     #[ORM\ManyToOne(inversedBy: 'notes')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $apprenant = null;
+    private ?Matiere $matiere = null;
 
     public function getId(): ?int
     {
@@ -42,18 +42,6 @@ class Note
         return $this;
     }
 
-    public function getMatiere(): ?Matiere
-    {
-        return $this->matiere;
-    }
-
-    public function setMatiere(?Matiere $matiere): static
-    {
-        $this->matiere = $matiere;
-
-        return $this;
-    }
-
     public function getApprenant(): ?User
     {
         return $this->apprenant;
@@ -62,6 +50,18 @@ class Note
     public function setApprenant(?User $apprenant): static
     {
         $this->apprenant = $apprenant;
+
+        return $this;
+    }
+
+    public function getMatiere(): ?Matiere
+    {
+        return $this->matiere;
+    }
+
+    public function setMatiere(?Matiere $matiere): static
+    {
+        $this->matiere = $matiere;
 
         return $this;
     }

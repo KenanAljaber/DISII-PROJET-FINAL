@@ -22,5 +22,4 @@ class ApprenantController extends AbstractController
         ]);
     }
 
-  
 }
