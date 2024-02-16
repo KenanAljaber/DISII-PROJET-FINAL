@@ -27,7 +27,7 @@ class UserType extends AbstractType
                 'attr' => ['placeholder' => 'Email']
             ])
             ->add('password', PasswordType::class, ['attr' => ['placeholder' => 'Mot de passe']])
-            ->add('Enregistrer', SubmitType::class,['attr' => [ 'class' => 'btn bright-btn']]);
+            ->add('Enregistrer', SubmitType::class,['attr' => [ 'class' => 'btn bright-btn create-user-btn']]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
