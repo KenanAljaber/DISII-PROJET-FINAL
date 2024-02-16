@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Hello AdminController!
+{% endblock %}
 
 {% block stylesheets %}
 	<link rel="stylesheet" href="{{ asset('styles/adminDashboard.css') }}" type="text/css">
@@ -8,69 +9,98 @@
 {% endblock %}
 
 {% block body %}
-<section class="main">
-    <div class="title">
-        <h1>Ajouter formateur/trice </h1>
-        <button onclick="toggleDropdown()">Retour</button>
-    </div>                  
-    <div class="input">
-        <input type="text" placeholder="Nom">
-        <input type="text" placeholder="Prénom">
-        <input type="email" placeholder="E-mail">
-        <input type="tel" placeholder="Téléphone">
-        <div class="dropdown">
-            <button class="dropbtn" onclick="Dropdown()">Matières</button>
-            <div class="dropdown-content" id="dropdownContent" style="display: none;">
-                <input type="checkbox" id="matiere1" value="Matiere 1">
-                <label for="matiere1">Matiere 1</label><br>
-                <input type="checkbox" id="matiere2" value="Matiere 2">
-                <label for="matiere2">Matiere 2</label><br>
-                <input type="checkbox" id="matiere3" value="Matiere 3">
-                <label for="matiere3">Matiere 3</label><br>
-            </div>
-        </div>
-        <button onclick="ajouterMatieres()">Ajouter</button>
-    </div> 
-    <div class="board">
-        <table class="table">
-            <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>E-mail</th>
-                <th>Téléphone</th>
-                <th>Matières</th>
-                <th>Actions</th>
-            </tr>
-            <tr>
-                <td class="column1"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="will_give"></td>
-                <td></td>
-            </tr>
-        </table>
-    </div>
-</section>
+	<section class="main">
+		<div class="title">
+			<h1>Ajouter formateur/trice
+			</h1>
+			<button class="btn dark-btn" onclick="toggleDropdown()">Retour</button>
+		</div>
+		<div class="form">
+			{{ form_start(form) }}
+			{{ form_widget(form.nom) }}
+			{{ form_widget(form.prenom) }}
+			{{ form_widget(form.email) }}
+			{{ form_widget(form.password) }}
+			{{ form_widget(form.Enregistrer) }}
+			{{ form_end(form) }}
+		</div>
+		<div class="board">
+			<table class="table">
+				<tr>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>E-mail</th>
+					<th>Matières</th>
+					<th>Actions</th>
+				</tr>
+				{% for formateur in formateures %}
+					<tr>
+						<td class="column1">{{formateur.nom}}</td>
+						<td>{{formateur.prenom}}</td>
+						<td>
+							{{formateur.email}}</td>
 
-<script>
-    function ajouterMatieres() {
-        var matieres = document.querySelectorAll('input[type="checkbox"]:checked');
-        var matieresText = [];
-        matieres.forEach(function(item) {
-            matieresText.push(item.value);
-        });
-        document.querySelector('.will_give').innerText = matieresText.join(', ');
-    }
+						<td>
+							<div class="dropdown">
+								<button id="dropdownButton" class="dropbtn btn dark-btn" onclick="Dropdown('{{formateur.id}}content-dropdown')">Matières</button>
+								<div class="dropdown-content" id="{{formateur.id}}content-dropdown" style="display: none;">
+									{% if formateur.matieres is empty %}
+										<div class="dropdown-item">
+											<p>Aucune matiere</p>
+										</div>
+									{% endif %}
+									{% for matiere in formateur.matieres %}
+										<div class="dropdown-item">
+											<input type="checkbox" id="matiere1" value={{matiere.nom}} checked disabled>
+											<p>{{matiere.formation.titre}}/{{matiere.nom}}</p>
+										</div>
+									{% endfor %}
+								</div>
+							</div>
+						</td>
+						<td class="actions">
+						
+							<div class="dropdown">
+								<button id="dropdownButton2" class="dropbtn btn dark-btn" onclick="Dropdown('{{formateur.id}}content-dropdown2')">Editer des matieres</button>
+								<div class="dropdown-content" id="{{formateur.id}}content-dropdown2" style="display: none;">
+									{% for matiere in matieres %}
+										<div class="dropdown-item">
+											{% set isChecked = formateur.matieres.contains(matiere) ? 'checked' : '' %}
+											<input type="checkbox" id="matiere1" value={{matiere.nom}} {{ isChecked }}>
+											<p>{{matiere.formation.titre}}/{{matiere.nom}}</p>
+										</div>
+									{% endfor %}
+								</div>
+							</div>
+									<button class="btn dark-btn" >Actualiser</button>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</section>
 
-    function Dropdown() {
-        var dropdownContent = document.getElementById("dropdownContent");
-        if (dropdownContent.style.display === "none") {
-            dropdownContent.style.display = "block";
-        } else {
-            dropdownContent.style.display = "none";
-        }
-    }
-</script>
+	<script>
+		function ajouterMatieres() {
+var matieres = document.querySelectorAll('input[type="checkbox"]:checked');
+var matieresText = [];
+matieres.forEach(matiere => {
+matieresText.push(matiere.value);
+})
+document.querySelector('.will_give').innerText = matieresText.join(', ');
+}
+
+
+function Dropdown(id) {
+console.log(id);
+var dropdownContent = document.getElementById(id);
+console.log(dropdownContent.style.display);
+if (dropdownContent.style.display === "none") {
+dropdownContent.style.display = "block";
+} else {
+dropdownContent.style.display = "none";
+}
+}
+	</script>
 
 {% endblock %}

@@ -78,5 +78,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         return $query->getResult();
     }
-    // SELECT User.nom As formateur , Matiere.nom As matiere FROM user JOIN matiere ON user.id = matiere.formateur WHERE user.id = 1; 
+
+    public function findUsersByRole(string $role): array
+    {
+        return $this->createQueryBuilder('u')
+                    ->andWhere('u.roles LIKE :role')
+                    ->setParameter('role', '%'.$role.'%')
+                    ->getQuery()
+                    ->getResult();
+    }
 }
+    // SELECT User.nom As formateur , Matiere.nom As matiere FROM user JOIN matiere ON user.id = matiere.formateur WHERE user.id = 1; 
+
