@@ -15,4 +15,12 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
         ]);
     }
+
+    #[Route('/admin/ajouteFormateur', name: 'app_admin_ajouteFormateur')]
+    public function ajouteFormateur(): Response
+    {
+        return $this->render('admin/ajouteFormateur.html.twig', [
+  
+        ]);
+    }
 }
