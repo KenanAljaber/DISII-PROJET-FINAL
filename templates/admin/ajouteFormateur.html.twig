@@ -59,20 +59,20 @@
 							</div>
 						</td>
 						<td class="actions">
-						
+
 							<div class="dropdown">
 								<button id="dropdownButton2" class="dropbtn btn dark-btn" onclick="Dropdown('{{formateur.id}}content-dropdown2')">Editer des matieres</button>
 								<div class="dropdown-content" id="{{formateur.id}}content-dropdown2" style="display: none;">
 									{% for matiere in matieres %}
-										<div class="dropdown-item">
+										<div class="dropdown-item" id="{{formateur.id}}-row">
 											{% set isChecked = formateur.matieres.contains(matiere) ? 'checked' : '' %}
-											<input type="checkbox" id="matiere1" value={{matiere.nom}} {{ isChecked }}>
+											<input type="checkbox" class="{{formateur.id}}checkbox" value={{matiere.id}} {{ isChecked }}>
 											<p>{{matiere.formation.titre}}/{{matiere.nom}}</p>
 										</div>
 									{% endfor %}
 								</div>
 							</div>
-									<button class="btn dark-btn" >Actualiser</button>
+							<button class="btn dark-btn" onclick="ajouterMatieres({{formateur.id}},(matiere)=> location.href = '/admin/modifierFormateur/{{formateur.id}}/'+matiere)">Actualiser</button>
 						</td>
 					</tr>
 				{% endfor %}
@@ -81,13 +81,19 @@
 	</section>
 
 	<script>
-		function ajouterMatieres() {
-var matieres = document.querySelectorAll('input[type="checkbox"]:checked');
-var matieresText = [];
-matieres.forEach(matiere => {
-matieresText.push(matiere.value);
-})
-document.querySelector('.will_give').innerText = matieresText.join(', ');
+		function ajouterMatieres(formateurId,callBack) {
+			console.log(formateurId);
+const checkboxes = document.getElementsByClassName(`${formateurId}checkbox`);
+const checkedValues = [];
+
+for (let i = 0; i < checkboxes.length; i++) {
+if (checkboxes[i].checked) {
+checkedValues.push(checkboxes[i].value);
+}
+}
+callBack(checkedValues.join(','));
+
+
 }
 
 

@@ -172,6 +172,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->matieres;
     }
 
+
     public function addMatiere(Matiere $matiere): static
     {
         if (!$this->matieres->contains($matiere)) {

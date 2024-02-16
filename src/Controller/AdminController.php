@@ -55,6 +55,23 @@ class AdminController extends AbstractController
             'user' => $user
         ]);
     }
+    #[Route('/admin/modifierFormateur/{id}/{matieresIds}', name: 'app_admin_modifier_formateur')]
+    public function modifierFormateur(EntityManagerInterface $entityManager, Request $request, int $id, String $matieresIds): Response{
+        $idsList= explode(',', $matieresIds);
+
+        $matiereRepo= $entityManager->getRepository(Matiere::class);
+        $userRepo= $entityManager->getRepository(User::class);
+        $user = $userRepo->find($id);
+        $user->getMatieres()->clear();
+        foreach ($idsList as $id) {
+            $matiere = $matiereRepo->find($id);
+            $user->addMatiere($matiere);
+        }
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_admin_ajouteFormateur');
+    }
+
 // list of mateier 
 // for each matiers show list of apprenant
 }
