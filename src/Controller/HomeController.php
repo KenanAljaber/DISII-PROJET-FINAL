@@ -18,6 +18,10 @@ class HomeController extends AbstractController
 
                 return $this->redirectToRoute('app_apprenant_dashboard');
             }
+            if ($this->getUser()->getRoles()[0] === TUTEUR) {
+
+                return $this->redirectToRoute('app_tuteur_dashboard');
+            }
         }
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',

@@ -14,15 +14,15 @@
 	{% if matiere %}
 		<section class="main">
 			<div class="title">
-				<h1>Bienvenue
-					{{ user.prenom }}</h1>
+				<h1>
+					{{ user.prenom }} {{ user.nom }}</h1>
 				{# <h2 class="subtitle">Ton formation: <span class="formation">{{ matieres[0].formation }}</span></h2> #}
 			</div>
 
 			<div class="content">
 				<div class="board">
 							{# if lenght is > 0 #}
-				{% if matiere.notes|length %}
+				{% if notes|length %}
 					<div class="notes-table">
 						<h1>Notes</h1>
 						<table class="table">
@@ -30,7 +30,7 @@
 								<th>Score</th>
 								<th>Date</th>
 							</tr>
-							{% for note in matiere.notes %}
+							{% for note in notes %}
 								<tr>
 									<td td class="column1">{{note.score}}</td>
 									<td td>{{note.date.format('d/m/Y')}}</td>

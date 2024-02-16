@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TuteurController!{% endblock %}
+
+{% block stylesheets %}
+
+	<link rel="stylesheet" href="{{ asset('styles/apprenant.css') }}" type="text/css">
+{% endblock %}
+{% block body %}
+	<section class="main">
+			<div class="title">
+				<h1>Bienvenue {{ user.prenom }}</h1>
+			</div>
+			<div class="content">
+
+                <h2>Liste des apprenants</h2>
+				<div class="board">
+					<table class="table">
+						<tr>
+							<th>Nom</th>
+							<th>Prenom</th>
+							<th>Email</th>
+							<th>Detalle</th>
+						</tr>
+						{% for apprenant in user.apprenants %}
+							<tr>
+								<td td class="column1">{{apprenant.nom}}</td>
+								<td>{{apprenant.prenom}}</td>
+								<td>{{apprenant.email}}</td>
+								<td td class="column-action"><button class="btn btn-table" onclick="location.href='{{path('app_tuteur_apprenant', {'id': user.id, 'apprenantId': apprenant.id})}}'">Voir</button></td>
+							</tr>
+						{% endfor %}
+
+					</table>
+				</div>
+			</div>
+		</section>
+
+{% endblock %}

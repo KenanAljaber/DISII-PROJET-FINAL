@@ -37,17 +37,28 @@ class ApprenantController extends AbstractController
             'matieres' => $matieres,
         ]);
     }
-    #[Route('/apprenant/{id}/{matiere}', name: 'apprenant_show_matiere')]
-    public function showMatiereDetails(EntityManagerInterface $entityManager, int $id, int $matiere): Response
+    #[Route('/apprenant/{id}/{matiereId}', name: 'apprenant_show_matiere')]
+    public function showMatiereDetails(EntityManagerInterface $entityManager, int $id, int $matiereId): Response
     {
         $userRepo= $entityManager->getRepository(User::class);
         $matiereRepo= $entityManager->getRepository(Matiere::class);
 
         $user = $userRepo->find($id);
-        $matiere = $matiereRepo->find($matiere);
+
+        $matiere = $matiereRepo->find($matiereId);
+        $notes= $user->getNotes();
+        $filteredNotes = [];
+        foreach ($notes as $note) {
+            if ($note->getMatiere()->getId() === $matiereId) {
+                $filteredNotes[] = $note;
+
+            }
+        }
+        
         return $this->render('apprenant/show_matiere.html.twig', [
             'user' => $user,
-            'matiere' => $matiere
+            'matiere' => $matiere,
+            'notes' => $filteredNotes
         ]);
 
     }

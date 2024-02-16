@@ -31,6 +31,9 @@ class SecurityController extends AbstractController
             if($role==ADMIN){
                 return $this->render('admin/index.html.twig', ['user' => $this->getUser()]);
             }
+            if($role==TUTEUR){
+                return $this->render('tuteur/index.html.twig', ['user' => $this->getUser()]);
+            }
             return $this->redirectToRoute('app_home');
         }
         
